@@ -1,0 +1,28 @@
+name: docker
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  docker:
+    runs-on: oscarhult/gitea-builder
+
+    steps:
+      - name: checkout
+        uses: https://github.com/actions/checkout@v3
+      
+      - name: setup build
+        uses: https://github.com/docker/setup-buildx-action@v2
+
+      - name: docker login
+        uses: https://github.com/docker/login-action@v2
+        with:
+          username: oscarhult
+          password: ${{ secrets.DOCKER_PAT }}
+
+      - name: build and push
+        uses: https://github.com/docker/build-push-action@v4
+        with:
+          push: true
+          tags: oscarhult/gitea-builder:latest
