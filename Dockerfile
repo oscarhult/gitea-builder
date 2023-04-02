@@ -2,15 +2,16 @@ FROM ubuntu:jammy
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update \
-  && apt install -y \
-     ca-certificates \
-     curl \
-     wget \
-     git \
-     jq \
-     xz-utils \
-     libicu-dev \
+RUN apt-get update \
+  && apt-get upgrade -y \
+  && apt install -y -qq --no-install-recommends \
+    ca-certificates \
+    curl \
+    wget \
+    git \
+    jq \
+    xz-utils \
+    libicu-dev \
   && rm -rf /var/lib/apt/lists/*
 
 ENV DOCKER_PATH=/usr/bin/docker
